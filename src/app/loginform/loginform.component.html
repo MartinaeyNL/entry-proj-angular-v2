@@ -1,5 +1,6 @@
 <div>
   <form nz-form class="login-form" [formGroup]="validateForm" (ngSubmit)="submitForm()">
+    <nz-alert *ngIf="errorDisplay?.length > 0" class="mb-2" nzType="error" [nzMessage]="errorDisplay" nzShowIcon></nz-alert>
     <nz-form-item>
       <nz-form-control nzErrorTip="Please input your username!">
         <nz-input-group nzPrefixIcon="user">

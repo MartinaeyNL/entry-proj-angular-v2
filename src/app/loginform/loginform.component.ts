@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {CurrentuserService} from '../_services/currentuser.service';
 
 @Component({
   selector: 'app-loginform',
@@ -10,20 +11,33 @@ export class LoginformComponent implements OnInit {
 
   // Variables
   validateForm!: FormGroup;
-
+  errorDisplay: string;
 
   // Methods
   submitForm(): void {
+
+    // tslint:disable-next-line:forin
     for (const i in this.validateForm.controls) {
-      if (i != null) {
-        this.validateForm.controls[i].markAsDirty();
-        this.validateForm.controls[i].updateValueAndValidity();
-      }
+      this.validateForm.controls[i].markAsDirty();
+      this.validateForm.controls[i].updateValueAndValidity();
+    }
+
+    // Check validation
+    if (this.validateForm.valid) {
+      this.userService.doLoginRequest(
+        this.validateForm.get('userName').value as string,
+        this.validateForm.get('password').value as string);
+      this.userService.activeToken.subscribe(token => {
+        this.errorDisplay = token;
+      })
+    } else {
+      this.errorDisplay = 'You haven\'t put the details in correctly.';
     }
   }
 
   // Constructor
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private userService: CurrentuserService) {
+  }
 
   // On Init
   ngOnInit(): void {

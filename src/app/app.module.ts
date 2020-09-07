@@ -4,13 +4,14 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import {
+  NzAlertModule,
   NzButtonModule,
   NzCardModule,
   NzCheckboxModule,
@@ -22,6 +23,7 @@ import {
 } from 'ng-zorro-antd';
 import {LoginpageComponent} from './loginpage/loginpage.component';
 import {LoginformComponent} from './loginform/loginform.component';
+import {HttpbaseurlInterceptor} from './_interceptors/httpbaseurl.interceptor';
 
 registerLocaleData(en);
 
@@ -45,9 +47,13 @@ registerLocaleData(en);
     NzCheckboxModule,
     NzButtonModule,
     NzCardModule,
-    NzTypographyModule
+    NzTypographyModule,
+    NzAlertModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: en_US }],
+  providers: [
+    { provide: NZ_I18N, useValue: en_US },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpbaseurlInterceptor, multi: true },
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
