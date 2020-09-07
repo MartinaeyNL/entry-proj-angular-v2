@@ -10,6 +10,7 @@ export class LoginpageComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

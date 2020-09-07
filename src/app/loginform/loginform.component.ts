@@ -8,8 +8,11 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class LoginformComponent implements OnInit {
 
+  // Variables
   validateForm!: FormGroup;
 
+
+  // Methods
   submitForm(): void {
     for (const i in this.validateForm.controls) {
       if (i != null) {
