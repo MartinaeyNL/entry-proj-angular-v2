@@ -37,4 +37,24 @@ export class UserstorageService {
       }
     );
   }
+
+  // Delete list of users
+  deleteListOfUsers(checkedIds: Set<number>): void {
+    console.log('Actually deleting users now!!!');
+    const userList = this.listOfUsersSubject.getValue();
+    const requestData = userList.filter(
+      data => checkedIds.has(data.id));
+    for (const user of requestData) {
+      console.log('Deleting a user:');
+      console.log(user);
+      this.httpService.removeUserHttpDelete(user.id).subscribe(
+        () => {
+          const tempList = userList.filter(item => {
+            return user !== item;
+          });
+          this.listOfUsersSubject.next(tempList);
+        }
+      );
+    }
+  }
 }

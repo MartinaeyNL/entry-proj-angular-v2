@@ -11,7 +11,7 @@ import {User} from '../_models/user';
 export class DashboardtableComponent implements OnInit {
 
   // Variables
-  checked = false;
+  checked = false;            // Checkbox at the top when selecting everything
   loadingState = false;
   searchNameVisible = false;
   searchNameValue = '';
@@ -19,17 +19,21 @@ export class DashboardtableComponent implements OnInit {
   pageSize = null;
 
   listOfCurrentData: Data[] = [];
-  listOfCurrentPageData: Data[] = [];
   setOfCheckedIds = new Set<number>();
 
   totalUserAmount: number = null;
 
   constructor(private userService: UserstorageService) {
-    this.pageSize = 7;
+    this.pageSize = 8;
     this.totalUserAmount = 0;
     this.userService.listOfUsers.subscribe(receivedArray => {
       console.log('[DashboardTable] Updating data!');
+      this.loadingState = false;
+      console.log(receivedArray);
       this.listOfCurrentData = receivedArray;
+      this.setOfCheckedIds = new Set<number>();
+      this.checked = false;
+      this.indeterminate = false;
     });
     this.userService.totalUserAmount.subscribe(receivedAmount => {
       this.totalUserAmount = receivedAmount;
@@ -37,7 +41,7 @@ export class DashboardtableComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.requestListOfUsers(0, 7);
+    this.userService.requestListOfUsers(0, this.pageSize);
   }
 
   // When USER presses ONE item
@@ -48,7 +52,7 @@ export class DashboardtableComponent implements OnInit {
 
   // When USER presses the 'all' buttons which selects all of the current page
   onAllChecked(checked: boolean): void {
-    this.listOfCurrentPageData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
+    this.listOfCurrentData.filter(({ disabled }) => !disabled).forEach(({ id }) => this.updateCheckedSet(id, checked));
     this.refreshCheckedStatus();
   }
 
@@ -56,10 +60,6 @@ export class DashboardtableComponent implements OnInit {
   onPageChange(pageNr): void {
     console.log('Changing to page number: ' + pageNr);
     this.userService.requestListOfUsers((pageNr - 1) * this.pageSize, this.pageSize);
-  }
-  onCurrentPageDataChange(listOfCurrentPageData: Data[]): void {
-    this.listOfCurrentPageData = listOfCurrentPageData;
-    this.refreshCheckedStatus();
   }
 
   // LOGIC method where the List gets edited.
@@ -73,14 +73,14 @@ export class DashboardtableComponent implements OnInit {
 
   // LOGIC method to refresh the data
   refreshCheckedStatus(): void {
-    const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
+    const listOfEnabledData = this.listOfCurrentData.filter(({ disabled }) => !disabled);
     this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedIds.has(id));
     this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedIds.has(id)) && !this.checked;
   }
 
   deleteUsersRequest(): void {
     this.loadingState = true;
-    // const requestData = this.listOfUsers.filter(data => this.setOfCheckedIds.has(data.id));
+    this.userService.deleteListOfUsers(this.setOfCheckedIds);
   }
 
   search(): void {
