@@ -18,9 +18,8 @@ export class CurrentuserService {
   private latestErrorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   public latestError: Observable<string>;
 
-  // TEMPORARY
-  // private activeTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-  // public activeToken: Observable<string>;
+  private activeTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  public activeToken: Observable<string>;
 
 
 
@@ -28,7 +27,7 @@ export class CurrentuserService {
   constructor(private httpService: HttpcommunicationService, private router: Router) {
     this.activeUser = this.activeUserSubject.asObservable();
     this.latestError = this.latestErrorSubject.asObservable();
-    // this.activeToken = this.activeTokenSubject.asObservable();
+    this.activeToken = this.activeTokenSubject.asObservable();
   }
 
 
@@ -40,8 +39,7 @@ export class CurrentuserService {
           const userToken = JSON.stringify(receivedData.token).split('"').join((''));
           this.activeUserSubject.next(new JwtHelperService().decodeToken(userToken) as User);
           this.router.navigate(['/dashboard']);
-          // onsole.log(jwt_decode(userToken));
-          // this.activeTokenSubject.next(userToken);
+          this.activeTokenSubject.next(userToken);
         },
         error => {
           console.log('[doLogin] Error:');

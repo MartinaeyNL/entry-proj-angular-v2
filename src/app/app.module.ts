@@ -24,6 +24,7 @@ import {
 import {LoginpageComponent} from './loginpage/loginpage.component';
 import {LoginformComponent} from './loginform/loginform.component';
 import {HttpbaseurlInterceptor} from './_interceptors/httpbaseurl.interceptor';
+import { DashboardpageComponent } from './dashboardpage/dashboardpage.component';
 
 registerLocaleData(en);
 
@@ -31,7 +32,8 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     LoginpageComponent,
-    LoginformComponent
+    LoginformComponent,
+    DashboardpageComponent
   ],
   imports: [
     BrowserModule,
