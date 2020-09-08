@@ -11,7 +11,6 @@ export class HttpcommunicationService {
 
   // Methods
   public getAuthenticator(email: string, password: string): Observable<any> {
-    const httpSetup = this.httpClient.post<Observable<any>>('/auth/login', {email, password});
-    return httpSetup;
+    return this.httpClient.post<Observable<any>>('/auth/login', {email, password});
   }
 }
