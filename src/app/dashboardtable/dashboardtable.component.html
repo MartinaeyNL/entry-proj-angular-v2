@@ -1,0 +1,77 @@
+<div>
+
+  <!-- Top Bar with Action Buttons  -->
+  <div class="send-request mb-3">
+    <button nz-button nz-popconfirm nzPopconfirmTitle='Are you sure you want to delete these {{ setOfCheckedIds.size }} Users?' nzPopconfirmPlacement="right" (nzOnConfirm)="deleteUsersRequest()"
+            nzType="danger" [disabled]="setOfCheckedIds.size === 0" [nzLoading]="loadingState">
+      Delete
+    </button>
+    <span class="ml-4">Selected {{ setOfCheckedIds.size }} items</span>
+  </div>
+
+  <!-- Table with all the data -->
+  <nz-table
+    #rowSelectionTable
+    nzShowPagination
+    [nzData]="listOfCurrentData"
+    nzSize="small"
+    nzPageSize="7"
+    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+    [nzLoading]="loadingState"
+  >
+    <thead>
+    <tr>
+      <th [nzChecked]="checked" [nzIndeterminate]="indeterminate" (nzCheckedChange)="onAllChecked($event)"></th>
+      <th nzCustomFilter>
+        <p>Full Name</p>
+        <nz-filter-trigger [(nzVisible)]="searchNameVisible" [nzActive]="searchNameValue.length > 0" [nzDropdownMenu]="menu">
+          <i nz-icon nzType="search"></i>
+        </nz-filter-trigger>
+      </th>
+      <th>Email Address</th>
+      <th> </th>
+      <th>Account Creation Date</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let data of rowSelectionTable.data">
+      <td
+        [nzChecked]="setOfCheckedIds.has(data.id)"
+        [nzDisabled]="data.disabled"
+        (nzCheckedChange)="onItemChecked(data.id, $event)"
+      ></td>
+      <td>
+        <nz-avatar class="float-left mr-3 border border-gray-300" [nzSize]="32" [nzSrc]="data.avatar" [nzIcon]="'user'"></nz-avatar>
+        <p style="line-height: 230%">{{ data.firstName + ' ' + data.lastName }}</p>
+      </td>
+      <td>{{ data.email }}</td>
+      <td>{{ data.address }}</td>
+      <td>{{ data.created_at.substring(0, 10).toLocaleString() }}</td>
+      <td>
+        <a nz-button nzType="link">Edit</a>
+      </td>
+    </tr>
+    </tbody>
+  </nz-table>
+
+
+  <!-- Search box in Name column -->
+  <nz-dropdown-menu #menu="nzDropdownMenu">
+    <div class="ant-table-filter-dropdown">
+      <div class="search-box">
+        <!--<input class="float-left" type="text" nz-input placeholder="Search name" [(ngModel)]="searchNameValue" />
+        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
+          Search
+        </button>-->
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixSearchIcon">
+          <input class="float-left" type="text" nz-input placeholder="Search name" [(ngModel)]="searchNameValue" (keyup.enter)="search()" />
+        </nz-input-group>
+        <ng-template #suffixSearchIcon>
+          <i nz-icon nzType="search"></i>
+        </ng-template>
+      </div>
+    </div>
+  </nz-dropdown-menu>
+</div>
+
