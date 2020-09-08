@@ -1,4 +1,17 @@
-<div>
-  <p *ngIf="activeUser != null">{{activeUser.firstName}} {{activeUser.lastName}}</p>
-  <router-outlet></router-outlet>
+<div class="h-screen w-screen m-auto bg-blue-200">
+  <div *ngIf="activeUser != null; else login">
+    <div class="p-10">
+      <nz-card>
+        <app-topmenu></app-topmenu>
+      </nz-card>
+    </div>
+    <div class="pt-0 pr-12 pb-12 pl-12">
+      <nz-card class="p-8" style="height: 70vh">
+        <router-outlet></router-outlet>
+      </nz-card>
+    </div>
+  </div>
+  <ng-template #login>
+    <router-outlet></router-outlet>
+  </ng-template>
 </div>

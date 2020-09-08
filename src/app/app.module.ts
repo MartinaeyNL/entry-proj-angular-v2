@@ -17,7 +17,7 @@ import {
   NzCheckboxModule,
   NzFormModule,
   NzIconModule,
-  NzInputModule,
+  NzInputModule, NzMenuModule,
   NzSliderModule,
   NzTypographyModule
 } from 'ng-zorro-antd';
@@ -25,6 +25,7 @@ import {LoginpageComponent} from './loginpage/loginpage.component';
 import {LoginformComponent} from './loginform/loginform.component';
 import {HttpbaseurlInterceptor} from './_interceptors/httpbaseurl.interceptor';
 import { DashboardpageComponent } from './dashboardpage/dashboardpage.component';
+import { TopmenuComponent } from './topmenu/topmenu.component';
 
 registerLocaleData(en);
 
@@ -33,7 +34,8 @@ registerLocaleData(en);
     AppComponent,
     LoginpageComponent,
     LoginformComponent,
-    DashboardpageComponent
+    DashboardpageComponent,
+    TopmenuComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +52,8 @@ registerLocaleData(en);
     NzButtonModule,
     NzCardModule,
     NzTypographyModule,
-    NzAlertModule
+    NzAlertModule,
+    NzMenuModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
