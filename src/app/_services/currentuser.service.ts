@@ -3,6 +3,8 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../_models/user';
 import {HttpClient} from '@angular/common/http';
 import {HttpcommunicationService} from './httpcommunication.service';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +25,7 @@ export class CurrentuserService {
 
 
   // Constructor
-  constructor(private httpService: HttpcommunicationService) {
+  constructor(private httpService: HttpcommunicationService, private router: Router) {
     this.activeUser = this.activeUserSubject.asObservable();
     this.latestError = this.latestErrorSubject.asObservable();
     this.activeToken = this.activeTokenSubject.asObservable();
@@ -36,7 +38,10 @@ export class CurrentuserService {
       this.httpService.getAuthenticator(username, password).subscribe(
         receivedData => {
           const userToken = JSON.stringify(receivedData.token).split('"').join((''));
-          this.activeTokenSubject.next(userToken);
+          this.activeUserSubject.next(new JwtHelperService().decodeToken(userToken) as User);
+          this.router.navigate(['/dashboard']);
+          // onsole.log(jwt_decode(userToken));
+          // this.activeTokenSubject.next(userToken);
         },
         error => {
           console.log('[doLogin] Error:');
