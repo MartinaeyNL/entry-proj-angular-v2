@@ -20,6 +20,7 @@ export class UserstorageService {
   // Constructor
   constructor(private httpService: HttpcommunicationService) {
     this.listOfUsers = this.listOfUsersSubject.asObservable();
+    this.totalUserAmount = this.totalUserAmountSubject.asObservable();
     // this.requestListOfUsers(0, 20);  !! TEMPORARY !!
   }
 

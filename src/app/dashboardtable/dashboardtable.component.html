@@ -13,10 +13,11 @@
   <nz-table
     #rowSelectionTable
     nzShowPagination
+    nzFrontPagination="false"
     [nzData]="listOfCurrentData"
     nzSize="small"
-    nzPageSize="7"
-    (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+    [nzTotal]="this.totalUserAmount"
+    (nzPageIndexChange)="onPageChange($event)"
     [nzLoading]="loadingState"
   >
     <thead>

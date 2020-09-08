@@ -15,25 +15,29 @@ export class DashboardtableComponent implements OnInit {
   loadingState = false;
   searchNameVisible = false;
   searchNameValue = '';
-  deleteConfirmation = false;
-
   indeterminate = false;
+  pageSize = null;
+
   listOfCurrentData: Data[] = [];
   listOfCurrentPageData: Data[] = [];
   setOfCheckedIds = new Set<number>();
 
-  listOfUsers: Data[] = [];
+  totalUserAmount: number = null;
 
   constructor(private userService: UserstorageService) {
+    this.pageSize = 7;
+    this.totalUserAmount = 0;
     this.userService.listOfUsers.subscribe(receivedArray => {
       console.log('[DashboardTable] Updating data!');
-      this.listOfUsers = receivedArray;
       this.listOfCurrentData = receivedArray;
+    });
+    this.userService.totalUserAmount.subscribe(receivedAmount => {
+      this.totalUserAmount = receivedAmount;
     });
   }
 
   ngOnInit(): void {
-    this.userService.requestListOfUsers(0, 20);
+    this.userService.requestListOfUsers(0, 7);
   }
 
   // When USER presses ONE item
@@ -49,6 +53,10 @@ export class DashboardtableComponent implements OnInit {
   }
 
   // When the USER changes the page
+  onPageChange(pageNr): void {
+    console.log('Changing to page number: ' + pageNr);
+    this.userService.requestListOfUsers((pageNr - 1) * this.pageSize, this.pageSize);
+  }
   onCurrentPageDataChange(listOfCurrentPageData: Data[]): void {
     this.listOfCurrentPageData = listOfCurrentPageData;
     this.refreshCheckedStatus();
@@ -77,12 +85,12 @@ export class DashboardtableComponent implements OnInit {
 
   search(): void {
     console.log('Searching!');
-    console.log('[Search] The size was: ' + this.listOfCurrentData.length);
-    this.listOfCurrentData = this.listOfUsers.filter((item: User) => {
-      return item.firstName.toLowerCase().includes(this.searchNameValue.toLowerCase()) ||
-        item.lastName.toLowerCase().includes(this.searchNameValue.toLowerCase());
-    });
-    console.log('[Search] Size is now: ' + this.listOfCurrentData.length);
+    // console.log('[Search] The size was: ' + this.listOfCurrentData.length);
+    // this.listOfCurrentData = this.listOfUsers.filter((item: User) => {
+    //  return item.firstName.toLowerCase().includes(this.searchNameValue.toLowerCase()) ||
+    //    item.lastName.toLowerCase().includes(this.searchNameValue.toLowerCase());
+    // });
+    // console.log('[Search] Size is now: ' + this.listOfCurrentData.length);
   }
 
 }
