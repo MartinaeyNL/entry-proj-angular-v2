@@ -27,9 +27,9 @@ export class LoginformComponent implements OnInit {
       this.userService.doLoginRequest(
         this.validateForm.get('userName').value as string,
         this.validateForm.get('password').value as string);
-      this.userService.activeToken.subscribe(token => {
-        this.errorDisplay = token;
-      })
+      // this.userService.activeToken.subscribe(token => {
+      //   this.errorDisplay = token;
+      // })
     } else {
       this.errorDisplay = 'You haven\'t put the details in correctly.';
     }

@@ -19,8 +19,8 @@ export class CurrentuserService {
   public latestError: Observable<string>;
 
   // TEMPORARY
-  private activeTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-  public activeToken: Observable<string>;
+  // private activeTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  // public activeToken: Observable<string>;
 
 
 
@@ -28,7 +28,7 @@ export class CurrentuserService {
   constructor(private httpService: HttpcommunicationService, private router: Router) {
     this.activeUser = this.activeUserSubject.asObservable();
     this.latestError = this.latestErrorSubject.asObservable();
-    this.activeToken = this.activeTokenSubject.asObservable();
+    // this.activeToken = this.activeTokenSubject.asObservable();
   }
 
 
