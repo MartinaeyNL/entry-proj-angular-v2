@@ -2,7 +2,7 @@
   <div class="flex-1 float-left">
     <ul nz-menu nzMode="horizontal">
       <li nz-menu-item nzSelected>
-        <i nz-icon nzType="mail"></i>
+        <i nz-icon nzType="home"></i>
         Dashboard
       </li>
       <li nz-menu-item nzDisabled>
@@ -42,7 +42,7 @@
   <div class="flex-none pl-8 pr-8 pt-2 pb-2">
     <div *ngIf="activeUser == null; else userprofile">
       <nz-avatar class="align-middle h-full" nzIcon="user"></nz-avatar>
-      <div class="h-full">
+      <div class="h-full ml-12">
         <span class="inline-block align-middle mt-1">Please log in.</span>
       </div>
     </div>
