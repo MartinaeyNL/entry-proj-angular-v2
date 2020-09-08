@@ -27,6 +27,7 @@ import {HttpbaseurlInterceptor} from './_interceptors/httpbaseurl.interceptor';
 import { DashboardpageComponent } from './dashboardpage/dashboardpage.component';
 import { TopmenuComponent } from './topmenu/topmenu.component';
 import { DashboardtableComponent } from './dashboardtable/dashboardtable.component';
+import {HttpheadersInterceptor} from './_interceptors/httpheaders.interceptor';
 
 registerLocaleData(en);
 
@@ -65,6 +66,7 @@ registerLocaleData(en);
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: HttpbaseurlInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpheadersInterceptor, multi: true },
     ],
   bootstrap: [AppComponent]
 })

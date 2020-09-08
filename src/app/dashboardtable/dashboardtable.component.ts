@@ -25,10 +25,15 @@ export class DashboardtableComponent implements OnInit {
   listOfUsers: Data[] = [];
 
   constructor(private userService: UserstorageService) {
-    this.userService.listOfUsers.subscribe(receivedArray => this.listOfUsers = receivedArray);
+    this.userService.listOfUsers.subscribe(receivedArray => {
+      console.log('[DashboardTable] Updating data!');
+      this.listOfUsers = receivedArray;
+      this.listOfCurrentData = receivedArray;
+    });
   }
 
   ngOnInit(): void {
+    this.userService.requestListOfUsers(0, 20);
   }
 
   // When USER presses ONE item
