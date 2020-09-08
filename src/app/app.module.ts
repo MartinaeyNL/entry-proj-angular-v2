@@ -11,13 +11,13 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import {
-  NzAlertModule,
+  NzAlertModule, NzAvatarModule,
   NzButtonModule,
   NzCardModule,
-  NzCheckboxModule,
+  NzCheckboxModule, NzDropDownModule,
   NzFormModule,
   NzIconModule,
-  NzInputModule, NzMenuModule,
+  NzInputModule, NzLayoutModule, NzMenuModule,
   NzSliderModule,
   NzTypographyModule
 } from 'ng-zorro-antd';
@@ -53,7 +53,10 @@ registerLocaleData(en);
     NzCardModule,
     NzTypographyModule,
     NzAlertModule,
-    NzMenuModule
+    NzMenuModule,
+    NzLayoutModule,
+    NzAvatarModule,
+    NzDropDownModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {CurrentuserService} from '../_services/currentuser.service';
+import {User} from '../_models/user';
 
 @Component({
   selector: 'app-topmenu',
@@ -7,7 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopmenuComponent implements OnInit {
 
-  constructor() { }
+  activeUser: User = null;
+
+  constructor(private userService: CurrentuserService) {
+    userService.activeUser.subscribe(receivedUser => { this.activeUser = receivedUser; });
+  }
 
   ngOnInit(): void {
   }
