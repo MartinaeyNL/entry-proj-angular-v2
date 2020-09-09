@@ -5,6 +5,7 @@ import {HttpClient} from '@angular/common/http';
 import {HttpcommunicationService} from './httpcommunication.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Router} from '@angular/router';
+import set = Reflect.set;
 
 @Injectable({
   providedIn: 'root'
@@ -46,8 +47,8 @@ export class CurrentuserService {
           try {
             // Save userToken to localstorage, and User in subject
             const userToken = JSON.stringify(receivedData.token).split('"').join((''));
-            this.activeUserSubject.next(new JwtHelperService().decodeToken(userToken) as User);
             localStorage.setItem('userToken', userToken);
+            this.activeUserSubject.next(new JwtHelperService().decodeToken(userToken) as User);
             this.router.navigate(['/dashboard']);
           }
           catch (error) {
