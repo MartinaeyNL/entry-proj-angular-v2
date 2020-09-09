@@ -14,7 +14,7 @@ import {
   NzAlertModule, NzAvatarModule,
   NzButtonModule,
   NzCardModule,
-  NzCheckboxModule, NzDropDownModule,
+  NzCheckboxModule, NzDescriptionsModule, NzDrawerModule, NzDropDownModule,
   NzFormModule,
   NzIconModule,
   NzInputModule, NzLayoutModule, NzMenuModule, NzPopconfirmModule,
@@ -29,6 +29,7 @@ import { TopmenuComponent } from './topmenu/topmenu.component';
 import { DashboardtableComponent } from './dashboardtable/dashboardtable.component';
 import {HttpheadersInterceptor} from './_interceptors/httpheaders.interceptor';
 import {HttperrorInterceptor} from './_interceptors/httperror.interceptor';
+import { DashboardEdituserComponent } from './dashboard-edituser/dashboard-edituser.component';
 
 registerLocaleData(en);
 
@@ -39,7 +40,8 @@ registerLocaleData(en);
     LoginformComponent,
     DashboardpageComponent,
     TopmenuComponent,
-    DashboardtableComponent
+    DashboardtableComponent,
+    DashboardEdituserComponent
   ],
   imports: [
     BrowserModule,
@@ -62,7 +64,9 @@ registerLocaleData(en);
     NzAvatarModule,
     NzDropDownModule,
     NzPopconfirmModule,
-    NzTableModule
+    NzTableModule,
+    NzDrawerModule,
+    NzDescriptionsModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

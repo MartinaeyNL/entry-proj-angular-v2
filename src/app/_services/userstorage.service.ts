@@ -16,11 +16,23 @@ export class UserstorageService {
   private totalUserAmountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(null);
   public totalUserAmount: Observable<number>;
 
+  private drawerStateSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public drawerState: Observable<boolean>;
+
+
 
   // Constructor
   constructor(private httpService: HttpcommunicationService) {
     this.listOfUsers = this.listOfUsersSubject.asObservable();
     this.totalUserAmount = this.totalUserAmountSubject.asObservable();
+    this.drawerState = this.drawerStateSubject.asObservable();
+  }
+
+  openDrawer(): void {
+    this.drawerStateSubject.next(true);
+  }
+  closeDrawer(): void {
+    this.drawerStateSubject.next(false);
   }
 
   // Getting list of users from API

@@ -50,7 +50,7 @@
       <td>{{ data.address }}</td>
       <td>{{ data.created_at.substring(0, 10).toLocaleString() }}</td>
       <td>
-        <a nz-button nzType="link">Edit</a>
+        <a nz-button nzType="link" (click)="openDrawer()">Edit</a>
       </td>
     </tr>
     </tbody>
@@ -61,10 +61,6 @@
   <nz-dropdown-menu #menu="nzDropdownMenu">
     <div class="ant-table-filter-dropdown">
       <div class="search-box">
-        <!--<input class="float-left" type="text" nz-input placeholder="Search name" [(ngModel)]="searchNameValue" />
-        <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">
-          Search
-        </button>-->
         <nz-input-group nzSearch [nzAddOnAfter]="suffixSearchIcon">
           <input class="float-left" type="text" nz-input placeholder="Search name" [(ngModel)]="searchNameValue" (keyup.enter)="search()" />
         </nz-input-group>

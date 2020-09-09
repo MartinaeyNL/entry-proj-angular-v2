@@ -93,4 +93,8 @@ export class DashboardtableComponent implements OnInit {
     // console.log('[Search] Size is now: ' + this.listOfCurrentData.length);
   }
 
+  openDrawer(): void {
+    this.userService.openDrawer();
+  }
+
 }
