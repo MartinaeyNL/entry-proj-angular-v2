@@ -8,13 +8,14 @@ import {
 import {Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
 import {catchError} from 'rxjs/operators';
+import {CurrentuserService} from '../_services/currentuser.service';
 
 @Injectable()
 export class HttperrorInterceptor implements HttpInterceptor {
 
 
   // Constructor
-  constructor(private router: Router) {}
+  constructor(private router: Router, private userService: CurrentuserService) {}
 
   // Interceptor
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -33,8 +34,7 @@ export class HttperrorInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           console.log('Invalid Credentials.'); // temp
           if (this.router.url !== '/login') {
-            localStorage.removeItem('userToken');
-            this.router.navigate(['/login']);
+            this.userService.doLogout();
           }
           return throwError('Invalid Credentials.');
         }

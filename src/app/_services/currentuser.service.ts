@@ -62,4 +62,10 @@ export class CurrentuserService {
 
     }
   }
+
+  public doLogout(): void {
+    localStorage.removeItem('userToken');
+    this.activeUserSubject.next(null);
+    this.router.navigate(['/login']);
+  }
 }

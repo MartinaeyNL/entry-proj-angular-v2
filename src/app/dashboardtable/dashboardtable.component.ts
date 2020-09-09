@@ -26,9 +26,6 @@ export class DashboardtableComponent implements OnInit {
   constructor(private userService: UserstorageService) {
     this.pageSize = 8;
     this.totalUserAmount = 0;
-  }
-
-  ngOnInit(): void {
     this.userService.listOfUsers.subscribe(receivedArray => {
       console.log('[DashboardTable] Updating data with:');
       this.loadingState = false;
@@ -41,6 +38,9 @@ export class DashboardtableComponent implements OnInit {
     this.userService.totalUserAmount.subscribe(receivedAmount => {
       this.totalUserAmount = receivedAmount;
     });
+  }
+
+  ngOnInit(): void {
     this.userService.requestListOfUsers(0, this.pageSize);
   }
 
