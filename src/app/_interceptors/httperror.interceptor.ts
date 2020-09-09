@@ -27,7 +27,7 @@ export class HttperrorInterceptor implements HttpInterceptor {
         // Cannot connect to server
         if (error.status === 0) {
           console.log('Couldn\'t connect to server.');
-          return throwError('Couldn\'t connect to server.')
+          return throwError('Couldn\'t connect to server.');
         }
 
         // Unauthorized

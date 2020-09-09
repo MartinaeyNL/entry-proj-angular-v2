@@ -7,8 +7,8 @@ import {AuthenticationGuard} from './_guards/authentication.guard';
 const routes: Routes = [
 
   // Main pages
-  { path: 'dashboard', component: DashboardpageComponent, canActivate: [AuthenticationGuard] },
   { path: 'login', component: LoginpageComponent },
+  { path: 'dashboard', component: DashboardpageComponent, canActivate: [AuthenticationGuard] },
 
   // Redirections
   { path: '**', redirectTo: '/dashboard' }
