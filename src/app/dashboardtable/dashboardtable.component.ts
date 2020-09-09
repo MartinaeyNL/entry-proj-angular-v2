@@ -27,7 +27,7 @@ export class DashboardtableComponent implements OnInit {
     this.pageSize = 8;
     this.totalUserAmount = 0;
     this.userService.listOfUsers.subscribe(receivedArray => {
-      console.log('[DashboardTable] Updating data!');
+      console.log('[DashboardTable] Updating data with:');
       this.loadingState = false;
       console.log(receivedArray);
       this.listOfCurrentData = receivedArray;

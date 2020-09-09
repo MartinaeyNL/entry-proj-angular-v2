@@ -21,7 +21,6 @@ export class UserstorageService {
   constructor(private httpService: HttpcommunicationService) {
     this.listOfUsers = this.listOfUsersSubject.asObservable();
     this.totalUserAmount = this.totalUserAmountSubject.asObservable();
-    // this.requestListOfUsers(0, 20);  !! TEMPORARY !!
   }
 
   // Getting list of users from API
@@ -40,7 +39,6 @@ export class UserstorageService {
 
   // Delete list of users
   deleteListOfUsers(checkedIds: Set<number>): void {
-    console.log('Actually deleting users now!!!');
     const userList = this.listOfUsersSubject.getValue();
     const requestData = userList.filter(
       data => checkedIds.has(data.id));
@@ -49,6 +47,7 @@ export class UserstorageService {
       console.log(user);
       this.httpService.removeUserHttpDelete(user.id).subscribe(
         () => {
+          // Copy the list without the deleted user, and submit to Subject.
           const tempList = userList.filter(item => {
             return user !== item;
           });

@@ -10,25 +10,18 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class HttpheadersInterceptor implements HttpInterceptor {
 
-  // Variables
-  userToken: string;
-
   // Constructor
-  constructor() {
-    this.userToken = localStorage.getItem('userToken');
-  }
+  constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    console.log('[HttpHeaders] Adding the userToken:');
-    console.log('[' + this.userToken + ']');
-    if (this.userToken) {
+    const userToken = localStorage.getItem('userToken');
+    console.log('[HttpHeaders] Adding the userToken: [' + userToken + ']');
+    if (userToken) {
       const cloned = request.clone({
         setHeaders: {
-          Authorization: `Bearer ${this.userToken}`
+          Authorization: `Bearer ${userToken}`
         }
       });
-      // console.log('[HttpHeaders] Cloned request is..');
-      // console.log(cloned);
       return next.handle(cloned);
     }
     else {

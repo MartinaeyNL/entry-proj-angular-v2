@@ -53,7 +53,7 @@
         <nz-dropdown-menu #userProfileMenu="nzDropdownMenu">
           <ul nz-menu nzSelectable>
             <li nz-menu-item>User Profile</li>
-            <li nz-menu-item>Logout</li>
+            <li nz-menu-item (click)="logout()">Logout</li>
           </ul>
         </nz-dropdown-menu>
       </div>
