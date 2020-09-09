@@ -3,6 +3,8 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../_models/user';
 import {HttpClient} from '@angular/common/http';
 import {HttpcommunicationService} from './httpcommunication.service';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,17 +18,23 @@ export class CurrentuserService {
   private latestErrorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   public latestError: Observable<string>;
 
-  // TEMPORARY
-  private activeTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-  public activeToken: Observable<string>;
+  // private activeTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  // public activeToken: Observable<string>;
 
 
 
   // Constructor
-  constructor(private httpService: HttpcommunicationService) {
+  constructor(private httpService: HttpcommunicationService, private router: Router) {
     this.activeUser = this.activeUserSubject.asObservable();
     this.latestError = this.latestErrorSubject.asObservable();
-    this.activeToken = this.activeTokenSubject.asObservable();
+    // this.activeToken = this.activeTokenSubject.asObservable();
+
+    // Decode token from local storage if available
+    if(localStorage.getItem('userToken') != null) {
+      this.activeUserSubject.next(
+        new JwtHelperService().decodeToken(localStorage.getItem('userToken'))
+      );
+    }
   }
 
 
@@ -35,15 +43,20 @@ export class CurrentuserService {
     if (typeof username === 'string' && typeof password === 'string') {   // To prevent manual injection
       this.httpService.getAuthenticator(username, password).subscribe(
         receivedData => {
-          const userToken = JSON.stringify(receivedData.token).split('"').join((''));
-          this.activeTokenSubject.next(userToken);
+          try {
+            // Save userToken to localstorage, and User in subject
+            const userToken = JSON.stringify(receivedData.token).split('"').join((''));
+            this.activeUserSubject.next(new JwtHelperService().decodeToken(userToken) as User);
+            localStorage.setItem('userToken', userToken);
+            this.router.navigate(['/dashboard']);
+          }
+          catch (error) {
+            this.latestErrorSubject.next(error.statusText);
+          }
         },
         error => {
-          console.log('[doLogin] Error:');
-          console.log(error);
-          this.latestErrorSubject.next(error);
-        },
-        () => { }
+          this.latestErrorSubject.next(error.statusText);
+        }
       );
 
     }

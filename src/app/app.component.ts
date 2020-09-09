@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {User} from './_models/user';
+import {CurrentuserService} from './_services/currentuser.service';
 
 @Component({
   selector: 'app-root',
@@ -7,30 +9,11 @@ import {Component, OnInit} from '@angular/core';
 })
 export class AppComponent implements OnInit {
   title = 'entryproj';
+  activeUser: User = null;
 
-  min = 0;
-  max = 20;
-  mid = parseFloat(((this.max - this.min) / 2).toFixed(5));
-  preHighLight = false;
-  nextHighLight = false;
-  _tempSliderValue = 0;
-
-  set tempSliderValue(value: number) {
-    this._tempSliderValue = value;
-    this.highlightIcon();
+  constructor(private userService: CurrentuserService) {
+    userService.activeUser.subscribe(receivedUser => { this.activeUser = receivedUser; });
   }
 
-  get tempSliderValue(): number {
-    return this._tempSliderValue;
-  }
-
-  ngOnInit(): void {
-    this.tempSliderValue = 0;
-  }
-
-  highlightIcon(): void {
-    const lower = this._tempSliderValue >= this.mid;
-    this.preHighLight = !lower;
-    this.nextHighLight = lower;
-  }
+  ngOnInit(): void {}
 }

@@ -1,0 +1,62 @@
+<div class="flex h-full">
+  <div class="flex-1 float-left">
+    <ul nz-menu nzMode="horizontal">
+      <li nz-menu-item nzSelected>
+        <i nz-icon nzType="home"></i>
+        Dashboard
+      </li>
+      <li nz-menu-item nzDisabled>
+        <i nz-icon nzType="appstore"></i>
+        Navigation Two
+      </li>
+      <li nz-submenu nzTitle="Navigation Three - Submenu" nzIcon="setting">
+        <ul>
+          <li nz-menu-group nzTitle="Item 1">
+            <ul>
+              <li nz-menu-item>Option 1</li>
+              <li nz-menu-item>Option 2</li>
+            </ul>
+          </li>
+          <li nz-menu-group nzTitle="Item 2">
+            <ul>
+              <li nz-menu-item>Option 3</li>
+              <li nz-menu-item>Option 4</li>
+              <li nz-submenu nzTitle="Sub Menu">
+                <ul>
+                  <li nz-menu-item nzDisabled>Option 5</li>
+                  <li nz-menu-item>Option 6</li>
+                </ul>
+              </li>
+              <li nz-submenu nzDisabled nzTitle="Disabled Sub Menu">
+                <ul>
+                  <li nz-menu-item>Option 5</li>
+                  <li nz-menu-item>Option 6</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  <div class="flex-none pl-8 pr-8 pt-2 pb-2">
+    <div *ngIf="activeUser == null; else userprofile">
+      <nz-avatar class="align-middle h-full" nzIcon="user"></nz-avatar>
+      <div class="h-full ml-12">
+        <span class="inline-block align-middle mt-1">Please log in.</span>
+      </div>
+    </div>
+    <ng-template #userprofile>
+      <nz-avatar style="width: 32px; height: 32px; overflow: hidden; border: 1px solid #E0E0E0" class="align-middle h-full float-left" [nzSrc]="activeUser.avatar"></nz-avatar>
+      <div class="h-full ml-12">
+        <a nz-dropdown [nzDropdownMenu]="userProfileMenu" class="inline-block align-middle mt-1">Welcome, {{activeUser.firstName}} {{activeUser.lastName}}</a>
+        <nz-dropdown-menu #userProfileMenu="nzDropdownMenu">
+          <ul nz-menu nzSelectable>
+            <li nz-menu-item>User Profile</li>
+            <li nz-menu-item>Logout</li>
+          </ul>
+        </nz-dropdown-menu>
+      </div>
+    </ng-template>
+  </div>
+</div>

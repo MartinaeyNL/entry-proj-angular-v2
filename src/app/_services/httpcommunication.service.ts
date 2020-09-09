@@ -11,7 +11,12 @@ export class HttpcommunicationService {
 
   // Methods
   public getAuthenticator(email: string, password: string): Observable<any> {
-    const httpSetup = this.httpClient.post<Observable<any>>('/auth/login', {email, password});
-    return httpSetup;
+    return this.httpClient.post<Observable<any>>('/auth/login', {email, password});
+  }
+  public getUserList(offset: number, limit: number): Observable<any> {
+    return this.httpClient.get<Observable<any>>('/users?offset=' + offset + '&limit=' + limit);
+  }
+  public removeUserHttpDelete(userid: number): Observable<any> {
+    return this.httpClient.delete<Observable<any>>('/users/' + userid);
   }
 }

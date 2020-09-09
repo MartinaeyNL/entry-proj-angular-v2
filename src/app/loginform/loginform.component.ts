@@ -27,16 +27,17 @@ export class LoginformComponent implements OnInit {
       this.userService.doLoginRequest(
         this.validateForm.get('userName').value as string,
         this.validateForm.get('password').value as string);
-      this.userService.activeToken.subscribe(token => {
-        this.errorDisplay = token;
-      })
     } else {
-      this.errorDisplay = 'You haven\'t put the details in correctly.';
+      this.errorDisplay = 'You haven\'t put the details in correctly.';   // Little bad practice
     }
   }
 
   // Constructor
   constructor(private fb: FormBuilder, private userService: CurrentuserService) {
+    this.userService.latestError.subscribe(receivedError => {
+      this.errorDisplay = receivedError;
+      setTimeout(() => { this.errorDisplay = null; }, 5000);
+    });
   }
 
   // On Init

@@ -11,19 +11,23 @@ import { en_US } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import en from '@angular/common/locales/en';
 import {
-  NzAlertModule,
+  NzAlertModule, NzAvatarModule,
   NzButtonModule,
   NzCardModule,
-  NzCheckboxModule,
+  NzCheckboxModule, NzDropDownModule,
   NzFormModule,
   NzIconModule,
-  NzInputModule,
-  NzSliderModule,
+  NzInputModule, NzLayoutModule, NzMenuModule, NzPopconfirmModule,
+  NzSliderModule, NzTableModule,
   NzTypographyModule
 } from 'ng-zorro-antd';
 import {LoginpageComponent} from './loginpage/loginpage.component';
 import {LoginformComponent} from './loginform/loginform.component';
 import {HttpbaseurlInterceptor} from './_interceptors/httpbaseurl.interceptor';
+import { DashboardpageComponent } from './dashboardpage/dashboardpage.component';
+import { TopmenuComponent } from './topmenu/topmenu.component';
+import { DashboardtableComponent } from './dashboardtable/dashboardtable.component';
+import {HttpheadersInterceptor} from './_interceptors/httpheaders.interceptor';
 
 registerLocaleData(en);
 
@@ -31,7 +35,10 @@ registerLocaleData(en);
   declarations: [
     AppComponent,
     LoginpageComponent,
-    LoginformComponent
+    LoginformComponent,
+    DashboardpageComponent,
+    TopmenuComponent,
+    DashboardtableComponent
   ],
   imports: [
     BrowserModule,
@@ -48,11 +55,18 @@ registerLocaleData(en);
     NzButtonModule,
     NzCardModule,
     NzTypographyModule,
-    NzAlertModule
+    NzAlertModule,
+    NzMenuModule,
+    NzLayoutModule,
+    NzAvatarModule,
+    NzDropDownModule,
+    NzPopconfirmModule,
+    NzTableModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: HttpbaseurlInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HttpheadersInterceptor, multi: true },
     ],
   bootstrap: [AppComponent]
 })
