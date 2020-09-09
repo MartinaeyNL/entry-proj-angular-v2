@@ -52,11 +52,13 @@ export class CurrentuserService {
             this.router.navigate(['/dashboard']);
           }
           catch (error) {
-            this.latestErrorSubject.next(error.statusText);
+            console.log('1: [' + error + ']');
+            this.latestErrorSubject.next(error);
           }
         },
         error => {
-          this.latestErrorSubject.next(error.statusText);
+          console.log('2: [' + error + ']');
+          this.latestErrorSubject.next(error);
         }
       );
 

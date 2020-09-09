@@ -35,6 +35,8 @@ export class LoginformComponent implements OnInit {
   // Constructor
   constructor(private fb: FormBuilder, private userService: CurrentuserService) {
     this.userService.latestError.subscribe(receivedError => {
+      console.log('Received Error on LoginForm!');
+      console.log(receivedError);
       this.errorDisplay = receivedError;
       setTimeout(() => { this.errorDisplay = null; }, 5000);
     });
