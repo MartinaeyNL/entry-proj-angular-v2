@@ -1,6 +1,92 @@
-<nz-drawer [nzVisible]="drawerVisible" [nzWidth]="640" [nzClosable]="false" (nzOnClose)="closeDrawer()">
-  <p class="title" style="margin-bottom: 24px;">User Profile</p>
-  <nz-descriptions [nzColumn]="2" nzTitle="Contact Details">
-    <nz-descriptions-item nzTitle="Full Name" [nzSpan]="2">Test</nz-descriptions-item>
-  </nz-descriptions>
+<nz-drawer [nzVisible]="drawerVisible" nzWidth="640" nzClosable="false" (nzOnClose)="closeDrawer()">
+  <p class="title" style="margin-bottom: 24px;">Edit User</p>
+  <form nz-form [formGroup]="editForm">
+    <nz-divider></nz-divider>
+    <h4 nz-typography>User Profile</h4>
+
+    <div class="mt-8">
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="9">
+          <nz-form-item>
+            <nz-form-label nzNoColon="true">
+              <i nz-icon nzType="user" nzTheme="outline"></i>
+            </nz-form-label>
+            <nz-form-control>
+              <input nz-input placeholder="First Name" formControlName="firstName"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="13">
+          <nz-form-item>
+            <nz-form-control>
+              <input nz-input placeholder="Last Name" formControlName="lastName"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="22">
+          <nz-form-item>
+            <nz-form-label nzNoColon="true">
+              <i nz-icon nzType="mail" nzTheme="outline"></i>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-input-group [nzAddOnAfter]="copymail">
+                <input nz-input placeholder="Email address" formControlName="email"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="22">
+          <nz-form-item>
+            <nz-form-label nzNoColon="true">
+              <i nz-icon nzType="picture" nzTheme="outline"></i>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-input-group [nzAddOnAfter]="copyavatar">
+                <input nz-input placeholder="Profile Avatar URL" formControlName="avatar"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="2" nzOffset="15">
+          <button nz-button nzType="link" nzDanger nzShape="circle">
+            <i nz-icon nzType="undo" nzTheme="outline" class="mb-1"></i>
+          </button>
+        </div>
+        <div nz-col nzSpan="5">
+          <button nz-button nzBlock nzType="primary">Success</button>
+        </div>
+      </div>
+    </div>
+    <nz-divider></nz-divider>
+    <h4 nz-typography>Utility Options</h4>
+    <p>Test</p>
+  </form>
+  <ng-template #copymail>
+    <i nz-icon nzType="copy" nzTheme="outline" nz-tooltip nzTooltipTitle="Copied!" nzTooltipTrigger="click"
+       [cdkCopyToClipboard]="editForm.controls['email'].value"></i>
+  </ng-template>
+  <ng-template #copyavatar>
+    <i nz-icon nzType="copy" nzTheme="outline" nz-tooltip nzTooltipTitle="Copied!" nzTooltipTrigger="click"
+       [cdkCopyToClipboard]="editForm.controls['avatar'].value"></i>
+  </ng-template>
+  <!--<nz-descriptions nzColumn="1" nzTitle="Contact Details">
+    <nz-descriptions-item nzTitle="Name" nzSpan="1">
+      <nz-input-group nzSize="default">
+        <div nz-row>
+          <div nz-col nzSpan="5">
+            <input nz-input [(ngModel)]="firstNameValue" />
+          </div>
+          <div nz-col nzSpan="8">
+            <input nz-input [(ngModel)]="lastNameValue" />
+          </div>
+        </div>
+      </nz-input-group>
+    </nz-descriptions-item>
+  </nz-descriptions>-->
 </nz-drawer>
