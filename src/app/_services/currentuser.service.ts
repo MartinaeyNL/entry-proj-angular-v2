@@ -19,16 +19,12 @@ export class CurrentuserService {
   private latestErrorSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   public latestError: Observable<string>;
 
-  // private activeTokenSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-  // public activeToken: Observable<string>;
-
 
 
   // Constructor
   constructor(private httpService: HttpcommunicationService, private router: Router) {
     this.activeUser = this.activeUserSubject.asObservable();
     this.latestError = this.latestErrorSubject.asObservable();
-    // this.activeToken = this.activeTokenSubject.asObservable();
 
     // Decode token from local storage if available
     if(localStorage.getItem('userToken') != null) {
@@ -52,12 +48,10 @@ export class CurrentuserService {
             this.router.navigate(['/dashboard']);
           }
           catch (error) {
-            console.log('1: [' + error + ']');
             this.latestErrorSubject.next(error);
           }
         },
         error => {
-          console.log('2: [' + error + ']');
           this.latestErrorSubject.next(error);
         }
       );
