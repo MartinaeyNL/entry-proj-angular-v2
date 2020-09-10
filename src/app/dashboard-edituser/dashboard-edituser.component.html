@@ -79,7 +79,13 @@
     </div>
     <nz-divider></nz-divider>
     <h4 nz-typography>Utility Options</h4>
-    <p>Test</p>
+    <div class="mt-8">
+      <div nz-row>
+        <div nz-col nzSpan="7">
+          <button nz-button nzDanger nzBlock nzType="primary" (click)="deleteUser()">Delete User</button>
+        </div>
+      </div>
+    </div>
   </form>
   <ng-template #copymail>
     <i nz-icon nzType="copy" nzTheme="outline" nz-tooltip nzTooltipTitle="Copied!" nzTooltipTrigger="click"

@@ -33,6 +33,11 @@ export class DashboardEdituserComponent implements OnInit {
     const finalUser = this.editForm.value as User;
     this.userService.editUser(this.editingUser, finalUser);
   }
+  deleteUser(): void {
+    const userSet = new Set<number>();
+    userSet.add(this.editingUser.id);
+    this.userService.deleteListOfUsers(userSet);
+  }
 
   // Init
   ngOnInit(): void {
