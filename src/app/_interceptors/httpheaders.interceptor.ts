@@ -15,7 +15,7 @@ export class HttpheadersInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     const userToken = localStorage.getItem('userToken');
-    console.log('[HttpHeaders] Adding the userToken: [' + userToken + ']');
+    // console.log('[HttpHeaders] Adding the userToken: [' + userToken + ']');
     if (userToken) {
       const cloned = request.clone({
         setHeaders: {

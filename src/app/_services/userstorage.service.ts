@@ -52,7 +52,6 @@ export class UserstorageService {
   requestListOfUsers(offset: number, limit: number): void {
     this.httpService.getUserList(offset, limit).subscribe(
       receivedData => {
-        console.log(receivedData);
         this.totalUserAmountSubject.next(receivedData.total);
         this.listOfUsersSubject.next(receivedData.data);
       },

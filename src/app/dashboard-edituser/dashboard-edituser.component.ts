@@ -35,7 +35,6 @@ export class DashboardEdituserComponent implements OnInit {
 
   // Init
   ngOnInit(): void {
-    console.log(this.userService);
     this.userService.editingUser.subscribe(user => {
       this.editingUser = user;
       this.editForm = this.formBuilder.group({
