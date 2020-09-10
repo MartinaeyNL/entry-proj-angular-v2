@@ -1,0 +1,43 @@
+<nz-modal [(nzVisible)]="isVisible" nzTitle="Creating User.." (nzOnCancel)="handleCancel()" (nzOnOk)="handleOk()">
+  <form nz-form [formGroup]="createForm">
+    <div>
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="10">
+          <nz-form-item>
+            <nz-form-label nzNoColon="true">
+              <i nz-icon nzType="user" nzTheme="outline"></i>
+            </nz-form-label>
+            <nz-form-control>
+              <input nz-input placeholder="First Name" formControlName="firstName"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="13">
+          <nz-form-item>
+            <nz-form-control>
+              <input nz-input placeholder="Last Name" formControlName="lastName"/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
+        <div nz-col nzSpan="23">
+          <nz-form-item>
+            <nz-form-label nzNoColon="true">
+              <i nz-icon nzType="mail" nzTheme="outline"></i>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-input-group>
+                <input nz-input placeholder="Email address" formControlName="email"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div *nzModalFooter>
+    <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
+    <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="submittingState">Create</button>
+  </div>
+</nz-modal>

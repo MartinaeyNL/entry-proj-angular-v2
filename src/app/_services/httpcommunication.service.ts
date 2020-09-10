@@ -18,6 +18,9 @@ export class HttpcommunicationService {
   public getUserList(offset: number, limit: number): Observable<any> {
     return this.httpClient.get<Observable<any>>('/users?offset=' + offset + '&limit=' + limit);
   }
+  public createUserHttp(user: User): Observable<any> {
+    return this.httpClient.post<Observable<any>>('/users', user);
+  }
   public editUserHttp(userId: number, user: User): Observable<any> {
     return this.httpClient.put<Observable<any>>('/users/' + userId, user);
   }
