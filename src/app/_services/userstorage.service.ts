@@ -16,11 +16,12 @@ export class UserstorageService {
   private totalUserAmountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(null);
   public totalUserAmount: Observable<number>;
 
-  // private drawerStateSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  // public drawerState: Observable<boolean>;
-
   private editingUserSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   public editingUser: Observable<User>;
+
+  private submittingStateSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public submittingState: Observable<boolean>;
+
 
 
   // Constructor
@@ -28,6 +29,7 @@ export class UserstorageService {
     this.listOfUsers = this.listOfUsersSubject.asObservable();
     this.totalUserAmount = this.totalUserAmountSubject.asObservable();
     this.editingUser = this.editingUserSubject.asObservable();
+    this.submittingState = this.submittingStateSubject.asObservable();
   }
 
   openDrawer(user: User): void {
@@ -53,13 +55,17 @@ export class UserstorageService {
   }
 
   editUser(user: User, formData: User): void {
+    this.submittingStateSubject.next(true);
     this.httpService.editUserHttp(user.id, formData).subscribe(
-      receivedData => {
-        console.log(receivedData);
+      () => {
+        this.closeDrawer();
       },
       error => {
         console.log('Very big error in UserStorage:');
         console.log(error);
+      },
+      () => {
+        this.submittingStateSubject.next(false);
       }
     );
   }

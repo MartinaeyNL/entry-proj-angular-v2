@@ -17,7 +17,7 @@ import {
   NzCheckboxModule, NzDescriptionsModule, NzDividerModule, NzDrawerModule, NzDropDownModule,
   NzFormModule,
   NzIconModule,
-  NzInputModule, NzLayoutModule, NzMenuModule, NzPopconfirmModule, NzPopoverModule,
+  NzInputModule, NzLayoutModule, NzMenuModule, NzMessageModule, NzMessageService, NzPopconfirmModule, NzPopoverModule,
   NzSliderModule, NzTableModule, NzToolTipModule,
   NzTypographyModule
 } from 'ng-zorro-antd';
@@ -71,7 +71,8 @@ registerLocaleData(en);
     NzDividerModule,
     ClipboardModule,
     NzToolTipModule,
-    NzPopoverModule
+    NzPopoverModule,
+    NzMessageModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

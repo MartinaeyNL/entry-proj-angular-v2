@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {UserstorageService} from '../_services/userstorage.service';
 import {User} from '../_models/user';
 import {FormBuilder, FormGroup} from '@angular/forms';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-dashboard-edituser',
@@ -12,15 +13,15 @@ export class DashboardEdituserComponent implements OnInit {
 
   // Variables
   editingUser: User;
+  submittingState: boolean;
 
-  finalUser: User;
   editForm: FormGroup;
 
 
   // Constructor
-  constructor(private formBuilder: FormBuilder, private userService: UserstorageService) {
+  constructor(private formBuilder: FormBuilder, private message: NzMessageService, private userService: UserstorageService) {
+    this.submittingState = false;
     this.editingUser = null;
-    this.finalUser = null;
   }
 
   closeDrawer(): void {
@@ -28,8 +29,8 @@ export class DashboardEdituserComponent implements OnInit {
   }
 
   submitForm(): void {
-    this.finalUser = this.editForm.value as User;
-    this.userService.editUser(this.editingUser, this.finalUser);
+    const finalUser = this.editForm.value as User;
+    this.userService.editUser(this.editingUser, finalUser);
   }
 
   // Init
@@ -43,6 +44,12 @@ export class DashboardEdituserComponent implements OnInit {
         email: this.editingUser?.email,
         avatar: this.editingUser?.avatar,
       });
+    });
+    this.userService.submittingState.subscribe(state => {
+      if(this.submittingState === true && state === false) {
+        this.message.create('success', 'Successfully saved the User!');
+      }
+      this.submittingState = state;
     });
   }
 
