@@ -1,6 +1,6 @@
-<nz-drawer [nzVisible]="drawerVisible" nzWidth="640" nzClosable="false" (nzOnClose)="closeDrawer()">
+<nz-drawer [nzVisible]="editingUser !== null" nzWidth="640" nzClosable="false" (nzOnClose)="closeDrawer()">
   <p class="title" style="margin-bottom: 24px;">Edit User</p>
-  <form nz-form [formGroup]="editForm">
+  <form nz-form [formGroup]="editForm" (ngSubmit)="submitForm()">
     <nz-divider></nz-divider>
     <h4 nz-typography>User Profile</h4>
 
@@ -54,12 +54,12 @@
       </div>
       <div nz-row>
         <div nz-col nzSpan="2" nzOffset="15">
-          <button nz-button nzType="link" nzDanger nzShape="circle">
+          <button type="button" nz-button nzType="link" nzDanger nzShape="circle" (click)="this.editForm.reset()">
             <i nz-icon nzType="undo" nzTheme="outline" class="mb-1"></i>
           </button>
         </div>
         <div nz-col nzSpan="5">
-          <button nz-button nzBlock nzType="primary">Success</button>
+          <button type="submit" nz-button nzBlock nzType="primary">Success</button>
         </div>
       </div>
     </div>

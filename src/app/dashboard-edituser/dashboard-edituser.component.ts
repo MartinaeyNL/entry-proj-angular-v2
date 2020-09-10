@@ -11,38 +11,40 @@ import {FormBuilder, FormGroup} from '@angular/forms';
 export class DashboardEdituserComponent implements OnInit {
 
   // Variables
-  drawerVisible: boolean;
+  editingUser: User;
 
   finalUser: User;
   editForm: FormGroup;
 
 
-
-
   // Constructor
   constructor(private formBuilder: FormBuilder, private userService: UserstorageService) {
-    userService.drawerState.subscribe(state => {
-      this.drawerVisible = state;
-    });
-    this.editForm = this.formBuilder.group({
-      firstName: '',
-      lastName: '',
-      email: '',
-      avatar: ''
-    });
+    this.editingUser = null;
     this.finalUser = null;
-    /*this.firstNameValue = 'naam1';
-    this.lastNameValue = 'naam2';
-    this.emailValue = 'naam3';
-    this.avatarUrlValue = 'naam4';*/
   }
 
   closeDrawer(): void {
     this.userService.closeDrawer();
   }
 
+  submitForm(): void {
+    console.log(this.editForm.value);
+    this.finalUser = this.editForm.value as User;
+    console.log(this.finalUser);
+  }
+
   // Init
   ngOnInit(): void {
+    console.log(this.userService);
+    this.userService.editingUser.subscribe(user => {
+      this.editingUser = user;
+      this.editForm = this.formBuilder.group({
+        firstName: this.editingUser?.firstName,
+        lastName: this.editingUser?.lastName,
+        email: this.editingUser?.email,
+        avatar: this.editingUser?.avatar,
+      });
+    });
   }
 
 }

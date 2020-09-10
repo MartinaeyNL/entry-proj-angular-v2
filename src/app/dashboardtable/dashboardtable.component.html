@@ -48,9 +48,9 @@
       </td>
       <td>{{ data.email }}</td>
       <td>{{ data.address }}</td>
-      <td>{{ data.created_at.substring(0, 10).toLocaleString() }}</td>
+      <td>{{ data.createdAt.substring(0, 10).toLocaleString() }}</td>
       <td>
-        <a nz-button nzType="link" (click)="openDrawer()">Edit</a>
+        <a nz-button nzType="link" (click)="openDrawer(data)">Edit</a>
       </td>
     </tr>
     </tbody>

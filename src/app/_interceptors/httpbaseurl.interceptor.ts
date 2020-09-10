@@ -13,7 +13,7 @@ export class HttpbaseurlInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    const baseUrl = 'https://testapi.jarpiscloud.nl/api/v1';
+    const baseUrl = 'https://skill.jarpiscloud.nl/api/v1';
     request = request.clone({
       url: baseUrl + request. url
     });
