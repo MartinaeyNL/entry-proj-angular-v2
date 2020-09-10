@@ -17,7 +17,7 @@ import {
   NzCheckboxModule, NzDescriptionsModule, NzDividerModule, NzDrawerModule, NzDropDownModule,
   NzFormModule,
   NzIconModule,
-  NzInputModule, NzLayoutModule, NzMenuModule, NzMessageModule, NzMessageService, NzPopconfirmModule, NzPopoverModule,
+  NzInputModule, NzLayoutModule, NzMenuModule, NzMessageModule, NzMessageService, NzModalModule, NzPopconfirmModule, NzPopoverModule,
   NzSliderModule, NzTableModule, NzToolTipModule,
   NzTypographyModule
 } from 'ng-zorro-antd';
@@ -31,6 +31,7 @@ import {HttpheadersInterceptor} from './_interceptors/httpheaders.interceptor';
 import {HttperrorInterceptor} from './_interceptors/httperror.interceptor';
 import { DashboardEdituserComponent } from './dashboard-edituser/dashboard-edituser.component';
 import {ClipboardModule} from '@angular/cdk/clipboard';
+import { DashboardCreateuserComponent } from './dashboard-createuser/dashboard-createuser.component';
 
 registerLocaleData(en);
 
@@ -42,7 +43,8 @@ registerLocaleData(en);
     DashboardpageComponent,
     TopmenuComponent,
     DashboardtableComponent,
-    DashboardEdituserComponent
+    DashboardEdituserComponent,
+    DashboardCreateuserComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ registerLocaleData(en);
     ClipboardModule,
     NzToolTipModule,
     NzPopoverModule,
-    NzMessageModule
+    NzMessageModule,
+    NzModalModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

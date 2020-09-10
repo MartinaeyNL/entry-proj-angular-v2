@@ -96,5 +96,8 @@ export class DashboardtableComponent implements OnInit {
   openDrawer(user): void {
     this.userService.openDrawer(user);
   }
+  openUserCreation(): void {
+    this.userService.openUserCreation();
+  }
 
 }
