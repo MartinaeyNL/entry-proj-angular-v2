@@ -1,3 +1,9 @@
 ::ng-deep .ant-card-body {
   padding: 0;
 }
+::ng-deep .anticon {
+  line-height: unset;
+}
+::ng-deep .anticon svg {
+  display: block;
+}
