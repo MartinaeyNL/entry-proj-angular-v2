@@ -52,6 +52,18 @@ export class UserstorageService {
     );
   }
 
+  editUser(user: User, formData: User): void {
+    this.httpService.editUserHttp(user.id, formData).subscribe(
+      receivedData => {
+        console.log(receivedData);
+      },
+      error => {
+        console.log('Very big error in UserStorage:');
+        console.log(error);
+      }
+    );
+  }
+
   // Delete list of users
   deleteListOfUsers(checkedIds: Set<number>): void {
     const userList = this.listOfUsersSubject.getValue();

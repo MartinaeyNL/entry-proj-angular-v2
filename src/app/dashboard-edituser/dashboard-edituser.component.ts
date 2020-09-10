@@ -28,9 +28,8 @@ export class DashboardEdituserComponent implements OnInit {
   }
 
   submitForm(): void {
-    console.log(this.editForm.value);
     this.finalUser = this.editForm.value as User;
-    console.log(this.finalUser);
+    this.userService.editUser(this.editingUser, this.finalUser);
   }
 
   // Init
