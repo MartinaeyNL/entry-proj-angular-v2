@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserstorageService} from '../_services/userstorage.service';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {User} from '../_models/user';
 
 @Component({
@@ -26,6 +26,7 @@ export class DashboardCreateuserComponent implements OnInit {
     }
   }
 
+
   constructor(private formBuilder: FormBuilder, private userService: UserstorageService) {
     this.isVisible = false;
   }
@@ -43,10 +44,11 @@ export class DashboardCreateuserComponent implements OnInit {
       () => {},
     );
     this.createForm = this.formBuilder.group({
-      firstName: '',
-      lastName: '',
-      email: '',
+      firstName: ['', [Validators.required]],
+      lastName: ['', [Validators.required]],
+      email: ['', [Validators.required]],
       avatar: '',
+      password: ['', [Validators.required]]
     });
   }
 

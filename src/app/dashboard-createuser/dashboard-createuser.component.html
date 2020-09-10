@@ -4,7 +4,7 @@
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="10">
           <nz-form-item>
-            <nz-form-label nzNoColon="true">
+            <nz-form-label nzRequired nzNoColon="true">
               <i nz-icon nzType="user" nzTheme="outline"></i>
             </nz-form-label>
             <nz-form-control>
@@ -23,7 +23,7 @@
       <div nz-row>
         <div nz-col nzSpan="23">
           <nz-form-item>
-            <nz-form-label nzNoColon="true">
+            <nz-form-label nzRequired nzNoColon="true">
               <i nz-icon nzType="mail" nzTheme="outline"></i>
             </nz-form-label>
             <nz-form-control>
@@ -34,10 +34,24 @@
           </nz-form-item>
         </div>
       </div>
+      <div nz-row>
+        <div nz-col nzSpan="23">
+          <nz-form-item>
+            <nz-form-label nzRequired nzNoColon="true">
+              <i nz-icon nzType="lock" nzTheme="outline"></i>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-input-group>
+                <input nz-input placeholder="Password" formControlName="password"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
     </div>
   </form>
   <div *nzModalFooter>
     <button nz-button nzType="default" (click)="handleCancel()">Cancel</button>
-    <button nz-button nzType="primary" (click)="handleOk()" [nzLoading]="submittingState">Create</button>
+    <button nz-button nzType="primary" (click)="handleOk()" [disabled]="!createForm.valid"[nzLoading]="submittingState">Create</button>
   </div>
 </nz-modal>
