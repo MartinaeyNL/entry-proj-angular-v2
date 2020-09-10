@@ -47,7 +47,7 @@
       </div>
     </div>
     <ng-template #userprofile>
-      <nz-avatar style="width: 32px; height: 32px; overflow: hidden; border: 1px solid #E0E0E0" class="align-middle h-full float-left" [nzSrc]="activeUser.avatar"></nz-avatar>
+      <nz-avatar style="width: 32px; height: 32px; overflow: hidden; border: 1px solid #E0E0E0" class="align-middle h-full float-left" nzIcon="user" [nzSrc]="activeUser.avatar"></nz-avatar>
       <div class="h-full ml-12">
         <a nz-dropdown [nzDropdownMenu]="userProfileMenu" class="inline-block align-middle mt-1">Welcome, {{activeUser.firstName}} {{activeUser.lastName}}</a>
         <nz-dropdown-menu #userProfileMenu="nzDropdownMenu">
