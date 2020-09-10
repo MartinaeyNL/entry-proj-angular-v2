@@ -53,6 +53,20 @@
         </div>
       </div>
       <div nz-row>
+        <div nz-col nzSpan="22">
+          <nz-form-item>
+            <nz-form-label nzNoColon="true">
+              <i nz-icon nzType="lock" nzTheme="outline"></i>
+            </nz-form-label>
+            <nz-form-control>
+              <nz-input-group [nzSuffix]="togglePassword">
+                  <input nz-input [type]="passwordVisible ? 'text' : 'password'" placeholder="Edit the Password" formControlName="password"/>
+              </nz-input-group>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+      <div nz-row>
         <div nz-col nzSpan="2" nzOffset="15">
           <button type="button" nz-button nzType="link" nzDanger nzShape="circle" (click)="this.editForm.reset()">
             <i nz-icon nzType="undo" nzTheme="outline" class="mb-1"></i>
@@ -74,5 +88,8 @@
   <ng-template #copyavatar>
     <i nz-icon nzType="copy" nzTheme="outline" nz-tooltip nzTooltipTitle="Copied!" nzTooltipTrigger="click"
        [cdkCopyToClipboard]="editForm.controls['avatar'].value"></i>
+  </ng-template>
+  <ng-template #togglePassword>
+    <i nz-icon [nzType]="passwordVisible ? 'eye-invisible' : 'eye'" (click)="passwordVisible = !passwordVisible"></i>
   </ng-template>
 </nz-drawer>

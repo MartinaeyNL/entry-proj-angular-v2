@@ -14,6 +14,7 @@ export class DashboardEdituserComponent implements OnInit {
   // Variables
   editingUser: User;
   submittingState: boolean;
+  passwordVisible: boolean;
 
   editForm: FormGroup;
 
@@ -42,6 +43,7 @@ export class DashboardEdituserComponent implements OnInit {
         lastName: this.editingUser?.lastName,
         email: this.editingUser?.email,
         avatar: this.editingUser?.avatar,
+        password: this.editingUser?.password
       });
     });
     this.userService.submittingState.subscribe(state => {
