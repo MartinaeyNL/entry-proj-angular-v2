@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserstorageService} from '../_services/userstorage.service';
 import {User} from '../_models/user';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
@@ -15,6 +15,7 @@ export class DashboardEdituserComponent implements OnInit {
   editingUser: User;
   submittingState: boolean;
   passwordVisible: boolean;
+  activeMessage: any;
 
   editForm: FormGroup;
 
@@ -30,8 +31,10 @@ export class DashboardEdituserComponent implements OnInit {
   }
 
   submitForm(): void {
-    const finalUser = this.editForm.value as User;
-    this.userService.editUser(this.editingUser, finalUser);
+    if (this.editForm.valid) {
+      const finalUser = this.editForm.value as User;
+      this.userService.editUser(this.editingUser, finalUser);
+    }
   }
   deleteUser(): void {
     const userSet = new Set<number>();
@@ -44,16 +47,20 @@ export class DashboardEdituserComponent implements OnInit {
     this.userService.editingUser.subscribe(user => {
       this.editingUser = user;
       this.editForm = this.formBuilder.group({
-        firstName: this.editingUser?.firstName,
-        lastName: this.editingUser?.lastName,
-        email: this.editingUser?.email,
+        firstName: [this.editingUser?.firstName, [Validators.required]],
+        lastName: [this.editingUser?.lastName, [Validators.required]],
+        email: [this.editingUser?.email, [Validators.required]],
         avatar: this.editingUser?.avatar,
-        password: this.editingUser?.password
+        password: [this.editingUser?.password, [Validators.minLength(4)]]
       });
     });
     this.userService.submittingState.subscribe(state => {
-      if(this.submittingState === true && state === false) {
-        this.message.create('success', 'Successfully saved the User!');
+      if (this.submittingState === true && state === false && this.activeMessage == null) {
+        const message = this.message.create('success', 'Successfully saved the User!');
+        this.activeMessage = message;
+        message.onClose.subscribe(
+          () => { this.activeMessage = null; }
+        );
       }
       this.submittingState = state;
     });
