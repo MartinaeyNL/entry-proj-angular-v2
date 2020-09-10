@@ -46,9 +46,9 @@ export class DashboardCreateuserComponent implements OnInit {
     this.createForm = this.formBuilder.group({
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       avatar: '',
-      password: ['', [Validators.required]]
+      password: ['', [Validators.required, Validators.minLength(4)]]
     });
   }
 
