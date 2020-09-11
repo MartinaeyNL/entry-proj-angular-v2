@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Data} from '@angular/router';
 import {UserstorageService} from '../_services/userstorage.service';
 import {User} from '../_models/user';
+import {catchError, first} from 'rxjs/operators';
+import {throwError} from 'rxjs';
 
 @Component({
   selector: 'app-dashboardtable',
@@ -25,7 +27,6 @@ export class DashboardtableComponent implements OnInit {
 
   constructor(private userService: UserstorageService) {
     this.pageSize = 8;
-    this.totalUserAmount = 0;
     this.userService.listOfUsers.subscribe(receivedArray => {
       // console.log('[DashboardTable] Updating data with:');
       this.loadingState = false;
@@ -35,13 +36,20 @@ export class DashboardtableComponent implements OnInit {
       this.checked = false;
       this.indeterminate = false;
     });
-    this.userService.totalUserAmount.subscribe(receivedAmount => {
-      this.totalUserAmount = receivedAmount;
-    });
   }
 
   ngOnInit(): void {
-    this.userService.requestListOfUsers(0, this.pageSize);
+    this.requestListOfUsers(0, this.pageSize);
+  }
+
+  requestListOfUsers(offset: number, limit: number): void {
+    this.userService.requestListOfUsers(offset, limit)
+      .pipe(first(), catchError(err => {
+        return throwError(err);
+      }))
+      .subscribe(data => {
+        this.totalUserAmount = data.total;
+      });
   }
 
   // When USER presses ONE item
@@ -59,7 +67,7 @@ export class DashboardtableComponent implements OnInit {
   // When the USER changes the page
   onPageChange(pageNr): void {
     console.log('Changing to page number: ' + pageNr);
-    this.userService.requestListOfUsers((pageNr - 1) * this.pageSize, this.pageSize);
+    this.requestListOfUsers((pageNr - 1) * this.pageSize, this.pageSize);
   }
 
   // LOGIC method where the List gets edited.
