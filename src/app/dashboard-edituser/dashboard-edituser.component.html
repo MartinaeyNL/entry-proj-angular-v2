@@ -1,13 +1,13 @@
 <nz-drawer [nzVisible]="editingUser !== null" nzWidth="640" nzClosable="false" (nzOnClose)="closeDrawer()">
   <form nz-form [formGroup]="editForm" (ngSubmit)="submitForm()">
-    <div nz-row nzGutter="12">
+    <div nz-row nzGutter="12" style="margin: -10px -10px -10px -10px;">
       <div nz-col nzSpan="6" nzOffset="10">
-        <button nz-button nzBlock nzType="primary" style="background-color: #faad14; border-color: #faad14" (click)="this.editForm.reset()">
+        <button nz-button nzBlock nzType="default" style="border-color: #faad14; color: #faad14" (click)="this.editForm.reset()">
           <i nz-icon nzType="undo" nzTheme="outline"></i>Reset
         </button>
       </div>
       <div nz-col nzSpan="8">
-        <button nz-button nzDanger nzBlock nzType="primary" (click)="deleteUser()">
+        <button nz-button nzDanger nzBlock nzType="default" (click)="deleteUser()">
           <i nz-icon nzType="delete" nzTheme="outline"></i>Delete User
         </button>
       </div>
