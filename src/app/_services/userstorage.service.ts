@@ -3,6 +3,8 @@ import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../_models/user';
 import {isInteger} from 'ng-zorro-antd';
 import {HttpcommunicationService} from './httpcommunication.service';
+import {HttpClient} from '@angular/common/http';
+import {first} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +15,6 @@ export class UserstorageService {
   // <editor-fold desc="» User Subjects">
   private listOfUsersSubject: BehaviorSubject<User[]> = new BehaviorSubject<User[]>(null);
   public listOfUsers: Observable<User[]>;
-
-  private totalUserAmountSubject: BehaviorSubject<number> = new BehaviorSubject<number>(null);
-  public totalUserAmount: Observable<number>;
 
   private editingUserSubject: BehaviorSubject<User> = new BehaviorSubject<User>(null);
   public editingUser: Observable<User>;
@@ -33,9 +32,8 @@ export class UserstorageService {
 
 
   // Constructor
-  constructor(private httpService: HttpcommunicationService) {
+  constructor(private httpService: HttpcommunicationService, private httpClient: HttpClient) {
     this.listOfUsers = this.listOfUsersSubject.asObservable();
-    this.totalUserAmount = this.totalUserAmountSubject.asObservable();
     this.editingUser = this.editingUserSubject.asObservable();
     this.creatingUser = this.creatingUserSubject.asObservable();
     this.creatingUserState = this.creatingUserStateSubject.asObservable();
@@ -49,17 +47,12 @@ export class UserstorageService {
 
 
   // Getting list of users from API
-  requestListOfUsers(offset: number, limit: number): void {
-    this.httpService.getUserList(offset, limit).subscribe(
-      receivedData => {
-        this.totalUserAmountSubject.next(receivedData.total);
-        this.listOfUsersSubject.next(receivedData.data);
-      },
-      error => {
-        console.log('[UserStorage] Oh jee... Een error:');
-        console.log(error);
-      }
-    );
+  requestListOfUsers(offset: number, limit: number): Observable<any> {
+    return this.httpClient.get<any>('/users?offset=' + offset + '&limit=' + limit)
+      .pipe(first(data => {
+        this.listOfUsersSubject.next(data.data);
+        return data;
+      }));
   }
 
   editUser(user: User, formData: User): void {

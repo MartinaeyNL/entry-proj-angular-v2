@@ -15,11 +15,12 @@
     #rowSelectionTable
     nzShowPagination
     nzFrontPagination="false"
-    [nzData]="listOfCurrentData"
+    [nzData]="this.listOfCurrentData"
     nzSize="small"
+    [nzPageSize]="this.pageSize"
     [nzTotal]="this.totalUserAmount"
     (nzPageIndexChange)="onPageChange($event)"
-    [nzLoading]="loadingState"
+    [nzLoading]="this.loadingState"
   >
     <thead>
     <tr>
