@@ -81,7 +81,7 @@ registerLocaleData(en);
     { provide: NZ_I18N, useValue: en_US },
     { provide: HTTP_INTERCEPTORS, useClass: HttpbaseurlInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: HttpheadersInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: HttperrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: HttperrorInterceptor, multi: true },
     ],
   bootstrap: [AppComponent]
 })

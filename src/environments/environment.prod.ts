@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  jarpisWebApiUrl: 'https://skill.jarpiscloud.nl/api/v1'
 };

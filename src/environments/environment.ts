@@ -3,7 +3,8 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  jarpisWebApiUrl: 'https://skill.jarpiscloud.nl/api/v1'
 };
 
 /*
