@@ -27,7 +27,6 @@ export class HttperrorInterceptor implements HttpInterceptor {
         // Cannot connect to server
         if (error.status === 0) {
           console.log('Couldn\'t connect to server.');
-          return throwError('Couldn\'t connect to server.');
         }
 
         // Unauthorized
@@ -36,9 +35,7 @@ export class HttperrorInterceptor implements HttpInterceptor {
           if (this.router.url !== '/login') {
             this.userService.doLogout();
           }
-          return throwError('Invalid Credentials.');
         }
-        // else if(error.type)
         return throwError(error);
       })
     );
