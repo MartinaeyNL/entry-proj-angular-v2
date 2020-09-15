@@ -31,6 +31,7 @@ export class LoginformComponent implements OnInit {
         .pipe(first(), catchError(err => {
           if (err.status === 401) {
             this.errorDisplay = err.error.error;
+            this.validateForm.controls[`password`].reset();
           }
           return throwError(err);
         }))
