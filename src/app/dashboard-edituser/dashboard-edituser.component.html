@@ -2,18 +2,21 @@
   <form nz-form [formGroup]="editForm" (ngSubmit)="submitForm()">
     <div nz-row nzGutter="12" style="margin: -10px -10px -10px -10px;">
       <div nz-col nzSpan="6" nzOffset="10">
-        <button nz-button nzBlock nzType="default" style="border-color: #faad14; color: #faad14" (click)="this.editForm.reset()">
+        <button type="reset" nz-button nzBlock nzType="default" style="border-color: #faad14; color: #faad14" (click)="this.editForm.reset()">
           <i nz-icon nzType="undo" nzTheme="outline"></i>Reset
         </button>
       </div>
       <div nz-col nzSpan="8">
-        <button nz-button nzDanger nzBlock nzType="default" (click)="deleteUser()">
+        <button type="button" nz-button nzDanger nzBlock nzType="default" (click)="deleteUser()">
           <i nz-icon nzType="delete" nzTheme="outline"></i>Delete User
         </button>
       </div>
     </div>
     <nz-divider></nz-divider>
-    <h4 nz-typography>Edit User</h4>
+    <nz-row class="align-middle">
+      <h4 nz-typography>Edit User</h4>
+      <nz-avatar class="float-right" [nzSrc]="editForm.controls['avatar'].value"></nz-avatar>
+    </nz-row>
     <div class="mt-8">
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="9">
